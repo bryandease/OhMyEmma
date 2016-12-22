@@ -16,7 +16,7 @@
 namespace Kite\OhMyEmma\Interfaces;
 
 /**
- * Class for manipulating member records 
+ * Class for manipulating member records
  * using the /members enpoint. For full details
  * of data formats and individual endpoints refer
  * to MyEmma.com's documentation. Last found here:
@@ -26,16 +26,16 @@ class Members
 {
 
     /**
-     * Request Object passed in via the 
-     * factory controller. 
+     * Request Object passed in via the
+     * factory controller.
      *
-     * @var object 
+     * @var object
      */
     private $_request = '';
 
     /**
-     * Construct the member object which 
-     * requires the request object from 
+     * Construct the member object which
+     * requires the request object from
      * the factory
      *
      * @param object $request
@@ -50,7 +50,7 @@ class Members
     }
 
     /**
-     * Request to retreave list of members 
+     * Request to retreave list of members
      * or filtered to one member via the $member
      * variable which can be a member id or email.
      *
@@ -63,7 +63,7 @@ class Members
         $url = '/members';
 
         if (
-            $member !== '' 
+            $member !== ''
             && filter_var($member, FILTER_VALIDATE_EMAIL) === false
         ) {
             $url .= "/".$member;
@@ -72,7 +72,7 @@ class Members
             }
         } else if (
             $member !== ''
-            && filter_var($member, FILTER_VALIDATE_EMAIL) !== false 
+            && filter_var($member, FILTER_VALIDATE_EMAIL) !== false
         ) {
             $url .= '/email/' . $member;
         }
@@ -104,7 +104,7 @@ class Members
             if (array_key_exists('members', $member) === true) {
                 $url = '/members';
             } else {
-                $url = '/members/add';
+                $url = '/members/signup';
             }
 
         }
@@ -175,7 +175,7 @@ class Members
 
     /**
      * Method allows the addition or removal of bulk
-     * groups to/from a member, reverse that, start over. 
+     * groups to/from a member, reverse that, start over.
      * Review Emma documentation for format of $groups array.
      * $remove specifics if you are removing or adding.
      *
@@ -199,7 +199,7 @@ class Members
 
     /**
      * This method DELETES all members. Why would you use
-     * this? You can filter via member status. Refer to 
+     * this? You can filter via member status. Refer to
      * Emma's documentation for accepted status codes.
      *
      * @param string $member
@@ -215,7 +215,7 @@ class Members
 
     /**
      * Either removes a specified member from all
-     * groups if $member is a string or removes a 
+     * groups if $member is a string or removes a
      * member from specified list of groups if $member
      * is an array. See Emma documenation for format
      * of the array.
@@ -307,7 +307,7 @@ class Members
     /**
      * Method for converting one group of members
      * from one status to another. See Emma documentation
-     * for approved statuses. 
+     * for approved statuses.
      *
      * @param string $fromStatus
      * @param string $toStatus
@@ -315,7 +315,7 @@ class Members
      */
     public function convertStatus($fromStatus, $toStatus, $limitGroup = '')
     {
-        
+
         $this->_request->method = "PUT";
         if ($limitGroup != '') {
             $this->_request->postData = $limitGroup;
